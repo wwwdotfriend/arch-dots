@@ -1,0 +1,49 @@
+{
+
+"include": [
+	"$HOME/.config/waybar/modules",  
+	"$HOME/.config/waybar/modules-groups"
+],
+
+"layer": "top",
+"exclusive": true,
+"passthrough": false,
+"position": "top",
+"spacing": 3,
+"fixed-center": true,
+"ipc": true,
+"margin-top": 8,
+"margin-left": 8,
+"margin-right": 8,
+
+"modules-left": [
+	"idle_inhibitor",
+	"custom/separator#blank",
+	"tray",
+	"custom/separator#blank",
+	"clock",
+	"custom/separator#blank",
+	"hyprland/window"
+],
+
+"modules-center": [
+	"group/app_drawer",
+	"custom/separator#dot-line",
+	"hyprland/workspaces#rw",
+	"custom/separator#dot-line",
+	"group/notify"
+],
+
+"modules-right": [
+	"group/laptop",
+	"custom/separator#blank",
+	"group/mobo_drawer",
+	"custom/separator#line",  
+	"group/audio",
+	"custom/separator#dot-line",
+	"mpris",
+	"custom/separator#blank", 
+	"group/status"
+]
+
+}

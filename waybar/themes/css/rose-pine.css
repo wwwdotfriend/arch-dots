@@ -1,0 +1,67 @@
+/* Rose Pine Moon */
+
+@define-color base            #232136;
+@define-color surface         #2a273f;
+@define-color overlay         #393552;
+
+@define-color muted           #6e6a86;
+@define-color subtle          #908caa;
+@define-color text            #e0def4;
+
+@define-color love            #eb6f92;
+@define-color gold            #f6c177;
+@define-color rose            #ea9a97;
+@define-color pine            #3e8fb0;
+@define-color foam            #9ccfd8;
+@define-color iris            #c4a7e7;
+
+@define-color highlightLow    #2a283e;
+@define-color highlightMed    #44415a;
+@define-color highlightHigh   #56526e;
+
+@define-color white           #ffffff;
+@define-color black           #000000;
+
+/* 
+  bg - background
+  fg - foreground
+  br - border
+*/
+
+/* Main Colors */
+
+@define-color shadow          shade(@base, 0.5);
+@define-color main-fg         @text;
+@define-color main-bg         @base;
+@define-color main-br         @text;
+
+@define-color active-bg       @highlightMed;
+@define-color active-fg       @text;
+
+@define-color hover-bg        @surface;
+@define-color hover-fg        alpha(@text, 0.75);
+
+/* Module Colors */
+
+@define-color module-fg       @text;
+@define-color workspaces      @surface;
+
+@define-color temperature     @surface;
+@define-color memory          @overlay;
+@define-color cpu             @highlightLow;
+@define-color distro-fg       @base;
+@define-color distro-bg       @subtle;
+@define-color time            @highlightLow;
+@define-color date            @overlay;
+@define-color tray            @surface;
+
+@define-color pulseaudio      @surface;
+@define-color backlight       @overlay;
+@define-color battery         @highlightLow;
+@define-color power           @highlightMed;
+
+/* State Colors */
+
+@define-color warning         @gold;
+@define-color critical        @love;
+@define-color charging        @foam;

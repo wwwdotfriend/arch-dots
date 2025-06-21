@@ -1,4 +1,5 @@
 #!/bin/bash
+# /* ᓚ₍ ^. .^₎ ♡ https://github.com/wwwdotfriend ♡ ᓚ₍ ^. .^₎ */ #
 
 # Default values
 NORMAL_OPACITY=1.0

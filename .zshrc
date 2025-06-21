@@ -73,7 +73,7 @@ ZSH_THEME="funky"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git colored-man-pages command-not-found fzf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -118,17 +118,25 @@ packages-by-date() {
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias error='journalctl -b -p err'
-alias bye='sudo shutdown now'
-alias brb='sudo reboot now'
-alias please='sudo'
-alias myip='curl ipinfo.io/ip'
-alias c='clear'
-alias ls='eza --group-directories-first --icons=always'
-alias hypredit='nano .config/hypr/hyprland.conf'
-alias zshedit='nano .zshrc'
-alias zshreload='source .zshrc'
+# --- System Logs & Power Commands ---
+alias error='journalctl -b -p err'                        # View boot errors only
+alias bye='sudo shutdown now'                             # Shutdown system immediately
+alias brb='sudo reboot now'                               # Reboot system
+alias please='sudo'                                       # Type 'please' instead of 'sudo'
 
+# --- Network Info ---
+alias myip='curl ipinfo.io/ip'                            # Show public IP address
+
+# --- Terminal Basics ---
+alias c='clear'                                           # Clear the terminal screen
+alias ls='eza --group-directories-first --icons=always'   # Better ls output with icons
+
+# --- Configuration Shortcuts ---
+alias hypredit='nano .config/hypr/hyprland.conf'          # Edit Hyprland config
+alias zshedit='nano .zshrc'                               # Edit Zsh config
+alias zshreload='source .zshrc'                           # Reload Zsh config
+
+# --- Navigation with ls ---
 function cdls() {
 	chdir $@
     eza --group-directories-first --icons=always
@@ -141,20 +149,52 @@ function zls() {
 }
 alias z='zls'
 
-# 0x0 < filename || command | 0x0
+# --- Yazi CD on exit ---
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
+# --- Text File Uploading ---
+# FOR FILES:    0x0 < filename
+# FOR COMMANDS: command | 0x0
 alias 0x0="curl -F 'file=@-' 0x0.st"
 
+# --- YouTube Downloads ---
 alias youtube-dl='yt-dlp'
 alias yt-dlp-mp3='youtube-dl -x --audio-format mp3 --audio-quality 0 --add-metadata'
 
-# Aliases for package management
+# --- Package Management ---
 alias pkglist='pacman -Qs --color=always | less -R'
 alias listpackages="pacman -Qqe"
 alias listpackages-date='packages-by-date'
 alias listpackages-detailed="pacman -Qqe | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
 alias killorphans="sudo pacman -Rnu $(pacman -Qtdq)"
+alias pacins='sudo pacman -S'
+alias pacupg='sudo pacman -Syu'
 
-# SSH
+# --- Flatpak Shortcuts ---
+alias zen='flatpak run app.zen_browser.zen'
+
+# --- SSH ---
 alias laptop='ssh luki@10.0.140'
 
+# --- Fonts ---
+alias fonts='fc-list : family | sort | uniq'
+alias findfont='fonts | grep -i'
+
+
 export PATH=$PATH:/home/luki/.spicetify
+
+# Following line was automatically added by arttime installer
+export MANPATH=/home/luki/.local/share/man:$MANPATH
+
+# Following line was automatically added by arttime installer
+export PATH=/home/luki/.local/bin:$PATH
+
+eval $(thefuck --alias)
+
+export PATH=$HOME/.config/rofi/scripts:$PATH
